@@ -1,14 +1,8 @@
 ## dependencies
 library(arrow)
-library(tidyr)
 library(dplyr)
-library(dbplyr)
-library(duckdb)
-library(duckplyr)
-library(progress)
-library(reshape2)
-library(ggplot2)
 library(readr)
+library(stringr)
 
 # Get command-line arguments (excluding the script name)
 args = commandArgs(trailingOnly = TRUE)

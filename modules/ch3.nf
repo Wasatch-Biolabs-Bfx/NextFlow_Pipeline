@@ -5,6 +5,8 @@ process ch3 {
         maxForks params.parallel_processes.toInteger()
     }
 
+    container 'community.wave.seqera.io/library/r-dplyr_r-readr_r-stringr_r-arrow_r-base:a78bd5af1f5aadcf'
+    // Maybe make just an R-base container and install other R packages?
     input:
         tuple val(curr_test_type), val(curr_barcode), val(curr_julian_id), val(curr_req_number)
         path input_dir
@@ -18,7 +20,7 @@ process ch3 {
     """
     if [[ ${params.modification} == true ]];
     then
-        batch_dir=$PWD # {input_dir}
+        batch_dir=\$PWD # {input_dir}
         
         # Make sure batch_dir path ends in '/'
         if [[ "\${batch_dir: -1}" != "/" ]]; then
@@ -27,8 +29,8 @@ process ch3 {
         fi
 
         # Make ch3 file
-        echo "Writing to: ${batch_dir}${curr_req_number}_${curr_julian_id}/"
-        mkdir -p ${batch_dir}${curr_req_number}_${curr_julian_id}/
+        echo "Writing to: \${batch_dir}${curr_req_number}_${curr_julian_id}/"
+        mkdir -p \${batch_dir}${curr_req_number}_${curr_julian_id}/
 
         Rscript ${call_ch3_script} \
             ${ch3_script} \

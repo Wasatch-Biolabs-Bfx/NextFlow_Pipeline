@@ -80,3 +80,6 @@
 2025-06-12 11:40:04	1m 23s	grave_boyd	ERR	5b602a2037725dc45592a727796aae6a	dbe0ae4e-33c0-4517-bba6-bb991159f8e3	nextflow run main.nf --input_dir /media/wbl-storage/hailey_code/NextFlow_Testing --batch_id 250522-A
 2025-06-12 11:45:49	1m 22s	loving_dijkstra	ERR	5b602a2037725dc45592a727796aae6a	b88c3764-79f2-47a0-b40d-27bfd8919bfa	nextflow run main.nf --input_dir /media/wbl-storage/hailey_code/NextFlow_Testing --batch_id 250522-A
 2025-06-12 11:59:40	4.4s	romantic_mestorf	ERR	5b602a2037725dc45592a727796aae6a	42452da5-9459-4d76-9f89-6453762c89c6	nextflow run main.nf --input_dir /media/wbl-storage/hailey_code/NextFlow_Testing --batch_id 250522-A
+2025-06-12 16:01:27	1m 24s	zen_einstein	ERR	5b602a2037725dc45592a727796aae6a	d60b229a-9214-42a1-ae09-3530443525a1	nextflow run main.nf --input_dir /media/wbl-storage/hailey_code/NextFlow_Testing --batch_id 250612-AQ
+2025-06-12 16:10:25	1m 22s	spontaneous_wing	ERR	5b602a2037725dc45592a727796aae6a	97736d37-8c80-44f3-b4ef-649f6c2828b1	nextflow run main.nf --input_dir /media/wbl-storage/hailey_code/NextFlow_Testing --batch_id 250612-AQ
+2025-06-12 16:14:39	1m 23s	festering_engelbart	ERR	5b602a2037725dc45592a727796aae6a	a1fa7ff6-bace-4441-8efc-e13f73003542	nextflow run main.nf --input_dir /media/wbl-storage/hailey_code/NextFlow_Testing --batch_id 250612-AQ
