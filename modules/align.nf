@@ -5,8 +5,13 @@ process align {
         maxForks params.parallel_processes.toInteger()
     }
 
+    // Add memory and CPU resources
+    memory '96.GB'  // Adjust based on your system
+    errorStrategy 'retry'
+    maxRetries 2
+
     // conda "bioconda::samtools=1.17"
-    container "nanoporetech/dorado:latest" 
+    container 'community.wave.seqera.io/library/samtools_dorado:4d022fe2bdea3beb'
 
     input:
         tuple val(curr_test_type), val(curr_barcode), val(curr_julian_id), val(curr_req_number)
@@ -18,6 +23,10 @@ process align {
 
     script:
     """
+    echo "Memory limit: \$(ulimit -a)" # View imposed resource limits
+    free -h                           # View actual available memory
+
+
     if [[ ${params.align} == true ]] || [[ ${params.modification} == true ]];
     then
     

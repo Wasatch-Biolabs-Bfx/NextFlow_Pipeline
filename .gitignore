@@ -1,5 +1,5 @@
 nextflow.config
-.nextflow.log
+.nextflow.log*
 work/
 SAM-*/ 
 test-*/  
