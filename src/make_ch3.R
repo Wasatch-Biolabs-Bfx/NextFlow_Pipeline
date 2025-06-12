@@ -33,6 +33,12 @@ source(make_ch3_script)
 
 ## MAKE CH3
 print(paste0("making .ch3 for: ",sample_name))
+
+# Ensure the output path exists
+if (!dir.exists(output_path)) {
+  dir.create(output_path, recursive = TRUE)
+}
+
 make_ch3_archive(file_name = calls_file_path, 
                  sample_name = sample_name, 
                  out_path = output_path)

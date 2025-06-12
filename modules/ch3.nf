@@ -7,7 +7,10 @@ process ch3 {
 
     input:
         tuple val(curr_test_type), val(curr_barcode), val(curr_julian_id), val(curr_req_number)
-    
+        path input_dir
+        path call_ch3_script
+        path ch3_script
+
     output:
         tuple val("$curr_test_type"), val("$curr_barcode"), val("$curr_julian_id"), val("$curr_req_number")
 
@@ -15,7 +18,7 @@ process ch3 {
     """
     if [[ ${params.modification} == true ]];
     then
-        batch_dir=${params.input_dir}
+        batch_dir=$PWD # {input_dir}
         
         # Make sure batch_dir path ends in '/'
         if [[ "\${batch_dir: -1}" != "/" ]]; then
@@ -24,9 +27,11 @@ process ch3 {
         fi
 
         # Make ch3 file
-        echo "ENTERING SCRIPT"
-        Rscript ${params.call_ch3_script} \
-            ${params.ch3_script} \
+        echo "Writing to: ${batch_dir}${curr_req_number}_${curr_julian_id}/"
+        mkdir -p ${batch_dir}${curr_req_number}_${curr_julian_id}/
+
+        Rscript ${call_ch3_script} \
+            ${ch3_script} \
             \${batch_dir}${curr_req_number}_${curr_julian_id}/${curr_req_number}_${curr_julian_id}.calls.tsv \
             \${batch_dir}${curr_req_number}_${curr_julian_id}/ \
             ${curr_req_number}_${curr_julian_id}

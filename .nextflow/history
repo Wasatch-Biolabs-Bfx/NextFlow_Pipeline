@@ -73,3 +73,10 @@
 2025-06-12 11:10:57	40.1s	intergalactic_goldberg	ERR	6c23a40682a02fd3e47bf4638369f5ec	08abe67a-e248-4cf6-b1fc-cab6d0f53581	nextflow run main.nf --input_dir /media/wbl-storage/hailey_code/NextFlow_Testing --batch_id 250522-A
 2025-06-12 11:14:11	-	special_kalam	-	6c23a40682a02fd3e47bf4638369f5ec	c8f3e480-577f-4fde-8768-9261b0d2dbc9	nextflow run main.nf --input_dir /media/wbl-storage/hailey_code/NextFlow_Testing --batch_id 250522-A
 2025-06-12 11:15:56	1m 28s	golden_goldwasser	ERR	241af2d42d5777bd18dc2374f6b0da74	68a7a5d2-bc0a-4913-90d2-95e277d40452	nextflow run main.nf --input_dir /media/wbl-storage/hailey_code/NextFlow_Testing --batch_id 250522-A
+2025-06-12 11:25:52	1m 27s	wise_euler	ERR	241af2d42d5777bd18dc2374f6b0da74	6e666607-f607-4440-be50-06803d97820c	nextflow run main.nf --input_dir /media/wbl-storage/hailey_code/NextFlow_Testing --batch_id 250522-A
+2025-06-12 11:31:48	2.3s	nice_almeida	ERR	241af2d42d5777bd18dc2374f6b0da74	839453c5-114c-4952-969c-7f6d5e895b6f	nextflow run main.nf --input_dir /media/wbl-storage/hailey_code/NextFlow_Testing --batch_id 250522-A
+2025-06-12 11:32:17	3s	scruffy_jones	ERR	241af2d42d5777bd18dc2374f6b0da74	b2103de8-ccd3-4952-ad4f-0534120be7ce	nextflow run main.nf --input_dir /media/wbl-storage/hailey_code/NextFlow_Testing --batch_id 250522-A
+2025-06-12 11:32:28	1m 23s	cheeky_hopper	ERR	241af2d42d5777bd18dc2374f6b0da74	2e44b1f2-8ea2-4ae9-a8a2-6f99164db0e2	nextflow run main.nf --input_dir /media/wbl-storage/hailey_code/NextFlow_Testing --batch_id 250522-A
+2025-06-12 11:40:04	1m 23s	grave_boyd	ERR	5b602a2037725dc45592a727796aae6a	dbe0ae4e-33c0-4517-bba6-bb991159f8e3	nextflow run main.nf --input_dir /media/wbl-storage/hailey_code/NextFlow_Testing --batch_id 250522-A
+2025-06-12 11:45:49	1m 22s	loving_dijkstra	ERR	5b602a2037725dc45592a727796aae6a	b88c3764-79f2-47a0-b40d-27bfd8919bfa	nextflow run main.nf --input_dir /media/wbl-storage/hailey_code/NextFlow_Testing --batch_id 250522-A
+2025-06-12 11:59:40	4.4s	romantic_mestorf	ERR	5b602a2037725dc45592a727796aae6a	42452da5-9459-4d76-9f89-6453762c89c6	nextflow run main.nf --input_dir /media/wbl-storage/hailey_code/NextFlow_Testing --batch_id 250522-A

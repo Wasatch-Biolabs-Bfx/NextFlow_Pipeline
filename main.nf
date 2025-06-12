@@ -95,7 +95,7 @@ workflow {
 
     modkit(align.out, params.input_dir, params.ref_genome, params.ref_motifs)
 
-    ch3(modkit.out)
+    ch3(modkit.out, params.input_dir, params.call_ch3_script, params.ch3_script)
 
     qc(ch3.out)
 
