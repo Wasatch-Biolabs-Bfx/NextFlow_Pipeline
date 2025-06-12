@@ -10,13 +10,14 @@ process modkit {
     input:
         tuple val(curr_test_type), val(curr_barcode), val(curr_julian_id), val(curr_req_number)
         path input_dir
+        path ref_genome
+        path ref_motifs
 
     output:
         tuple val("$curr_test_type"), val("$curr_barcode"), val("$curr_julian_id"), val("$curr_req_number")
 
     shell:
     """
-
     if [[ ${params.modification} == true ]];
     then
         batch_dir="\$(realpath ${input_dir})"
@@ -36,7 +37,16 @@ process modkit {
         #else
         echo "Extracting methyl calls for ${curr_req_number} (${curr_julian_id})"
 
-        ${params.modkit_executable_dir} extract \${batch_dir}${curr_req_number}_${curr_julian_id}/${curr_req_number}_${curr_julian_id}.aln.sorted.bam "null" --read-calls \${batch_dir}${curr_req_number}_${curr_julian_id}/${curr_req_number}_${curr_julian_id}.calls.tsv --ref ${params.ref_genome} --include-bed ${params.ref_motifs} --mapped-only --force --kmer-size 2
+        modkit extract calls\\
+            --threads 4 \\
+            \${batch_dir}${curr_req_number}_${curr_julian_id}/${curr_req_number}_${curr_julian_id}.aln.sorted.bam \\
+            \${batch_dir}${curr_req_number}_${curr_julian_id}/${curr_req_number}_${curr_julian_id}.calls.tsv \\
+            --ref ${ref_genome} \\
+            --include-bed ${ref_motifs} \\
+            --mapped-only --force --kmer-size 2
+
+        # modkit extract \${batch_dir}${curr_req_number}_${curr_julian_id}/${curr_req_number}_${curr_julian_id}.aln.sorted.bam \\
+        #    "null" --read-calls \${batch_dir}${curr_req_number}_${curr_julian_id}/${curr_req_number}_${curr_julian_id}.calls.tsv --ref ${params.ref_genome} --include-bed ${params.ref_motifs} --mapped-only --force --kmer-size 2
 
     else
         echo "Modification parameter was not selected so skipping modkit"

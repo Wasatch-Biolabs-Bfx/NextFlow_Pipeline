@@ -93,7 +93,7 @@ workflow {
 
     align(merge_bams.out, params.input_dir, params.ref_genome)
 
-    modkit(align.out, params.input_dir)
+    modkit(align.out, params.input_dir, params.ref_genome, params.ref_motifs)
 
     ch3(modkit.out)
 

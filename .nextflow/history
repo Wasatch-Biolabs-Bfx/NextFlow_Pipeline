@@ -63,3 +63,13 @@
 2025-06-12 10:38:15	-	fabulous_gautier	-	6c23a40682a02fd3e47bf4638369f5ec	443303b9-c301-4803-9aa0-e74b63af9ef2	nextflow run main.nf --input_dir /media/wbl-storage/hailey_code/NextFlow_Testing --batch_id 250522-A
 2025-06-12 10:39:25	2m 13s	high_venter	ERR	6c23a40682a02fd3e47bf4638369f5ec	307c1349-f7b2-4310-a5a2-d2d9d7778c62	nextflow run main.nf --input_dir /media/wbl-storage/hailey_code/NextFlow_Testing --batch_id 250522-A
 2025-06-12 10:45:21	48.5s	nostalgic_allen	ERR	6c23a40682a02fd3e47bf4638369f5ec	2fdebaa7-c28d-4dca-81cb-a6dad5e8568b	nextflow run main.nf --input_dir /media/wbl-storage/hailey_code/NextFlow_Testing --batch_id 250522-A
+2025-06-12 10:49:37	-	stupefied_elion	-	6c23a40682a02fd3e47bf4638369f5ec	2fdebaa7-c28d-4dca-81cb-a6dad5e8568b	nextflow run main.nf -resume
+2025-06-12 10:50:29	-	astonishing_bartik	-	6c23a40682a02fd3e47bf4638369f5ec	2fdebaa7-c28d-4dca-81cb-a6dad5e8568b	nextflow run main.nf -resume --batch_id 250522-A
+2025-06-12 10:50:47	40.3s	elegant_faggin	ERR	6c23a40682a02fd3e47bf4638369f5ec	fa2eba27-1491-4d00-b823-a17e5935f703	nextflow run main.nf --input_dir /media/wbl-storage/hailey_code/NextFlow_Testing --batch_id 250522-A
+2025-06-12 10:55:19	38.5s	deadly_lattes	ERR	6c23a40682a02fd3e47bf4638369f5ec	fa2eba27-1491-4d00-b823-a17e5935f703	nextflow run main.nf --input_dir /media/wbl-storage/hailey_code/NextFlow_Testing --batch_id 250522-A -resume
+2025-06-12 10:59:14	43.3s	festering_euclid	ERR	6c23a40682a02fd3e47bf4638369f5ec	e33f2d6b-3de6-492b-9e2b-4d6de608e566	nextflow run main.nf --input_dir /media/wbl-storage/hailey_code/NextFlow_Testing --batch_id 250522-A
+2025-06-12 11:02:38	40s	confident_dijkstra	ERR	6c23a40682a02fd3e47bf4638369f5ec	1ff2187c-bfe8-4e51-aeb0-40285edcac41	nextflow run main.nf --input_dir /media/wbl-storage/hailey_code/NextFlow_Testing --batch_id 250522-A
+2025-06-12 11:04:41	42.8s	trusting_nightingale	ERR	6c23a40682a02fd3e47bf4638369f5ec	4af00b57-ed4f-4a7e-b312-ecbd2a70ad42	nextflow run main.nf --input_dir /media/wbl-storage/hailey_code/NextFlow_Testing --batch_id 250522-A
+2025-06-12 11:10:57	40.1s	intergalactic_goldberg	ERR	6c23a40682a02fd3e47bf4638369f5ec	08abe67a-e248-4cf6-b1fc-cab6d0f53581	nextflow run main.nf --input_dir /media/wbl-storage/hailey_code/NextFlow_Testing --batch_id 250522-A
+2025-06-12 11:14:11	-	special_kalam	-	6c23a40682a02fd3e47bf4638369f5ec	c8f3e480-577f-4fde-8768-9261b0d2dbc9	nextflow run main.nf --input_dir /media/wbl-storage/hailey_code/NextFlow_Testing --batch_id 250522-A
+2025-06-12 11:15:56	1m 28s	golden_goldwasser	ERR	241af2d42d5777bd18dc2374f6b0da74	68a7a5d2-bc0a-4913-90d2-95e277d40452	nextflow run main.nf --input_dir /media/wbl-storage/hailey_code/NextFlow_Testing --batch_id 250522-A
