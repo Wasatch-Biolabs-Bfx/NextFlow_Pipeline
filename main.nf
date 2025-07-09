@@ -72,11 +72,6 @@ log.info " ======================"
 log.info " Input Directory          : ${params.input_dir}"
 log.info " Batch ID                 : ${params.batch_id}"
 log.info " ======================"
-log.info " Permanent Parameters "
-log.info " ======================"
-log.info " Dorado Directory         : ${params.dorado_executable_dir}"
-log.info " MODKIT Directory         : ${params.modkit_executable_dir}"
-log.info " ======================"
 log.info ""
 
 
@@ -95,11 +90,11 @@ workflow {
 
     modkit(align.out, params.input_dir, params.ref_genome, params.ref_motifs)
 
-    ch3(modkit.out, params.input_dir, params.call_ch3_script, params.ch3_script)
+    ch3(modkit.out, params.input_dir)
 
-    qc(ch3.out)
+    qc(ch3.out, params.input_dir)
 
-    organize_data(qc.out)
+    organize_data(qc.out, params.input_dir)
 
     aws_upload_samples(organize_data.out)
 

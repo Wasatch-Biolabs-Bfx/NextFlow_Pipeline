@@ -1,26 +1,25 @@
-#!/usr/bin/
+#!/usr/bin/env nextflow
 
 process ch3 {
     if (params.parallel_processes) {
         maxForks params.parallel_processes.toInteger()
     }
 
-    container 'community.wave.seqera.io/library/r-dplyr_r-readr_r-stringr_r-arrow_r-base:a78bd5af1f5aadcf'
-    // Maybe make just an R-base container and install other R packages?
+    container 'haileyzimmerman/methylseqr:0.8.2'
+    containerOptions '--entrypoint ""'     // <<< clears ENTRYPOINT
+
     input:
         tuple val(curr_test_type), val(curr_barcode), val(curr_julian_id), val(curr_req_number)
         path input_dir
-        path call_ch3_script
-        path ch3_script
 
     output:
         tuple val("$curr_test_type"), val("$curr_barcode"), val("$curr_julian_id"), val("$curr_req_number")
 
-    shell:
+    script:
     """
     if [[ ${params.modification} == true ]];
     then
-        batch_dir=\$PWD # {input_dir}
+        batch_dir=${input_dir} # {input_dir}
         
         # Make sure batch_dir path ends in '/'
         if [[ "\${batch_dir: -1}" != "/" ]]; then
@@ -31,12 +30,29 @@ process ch3 {
         # Make ch3 file
         echo "Writing to: \${batch_dir}${curr_req_number}_${curr_julian_id}/"
         mkdir -p \${batch_dir}${curr_req_number}_${curr_julian_id}/
+        
+        echo "Writing CH3 archive..."
 
-        Rscript ${call_ch3_script} \
-            ${ch3_script} \
-            \${batch_dir}${curr_req_number}_${curr_julian_id}/${curr_req_number}_${curr_julian_id}.calls.tsv \
-            \${batch_dir}${curr_req_number}_${curr_julian_id}/ \
-            ${curr_req_number}_${curr_julian_id}
+        # Run R script
+cat > run_make_ch3.R <<'RS'
+library(MethylSeqR)
+library(dplyr)
+library(arrow)
+
+print(Sys.getenv("CALLS_FILE"))
+getwd()
+make_ch3_archive(
+    file_name = Sys.getenv("CALLS_FILE"),
+    sample_name = Sys.getenv("SAMPLE_NAME"),
+    out_path   = Sys.getenv("OUT_PATH")
+)
+RS
+
+        CALLS_FILE="\${batch_dir}${curr_req_number}_${curr_julian_id}/${curr_req_number}_${curr_julian_id}.calls.tsv"  \
+        SAMPLE_NAME="${curr_req_number}_${curr_julian_id}" \
+        OUT_PATH="\${batch_dir}${curr_req_number}_${curr_julian_id}/" \
+        Rscript --vanilla run_make_ch3.R
+
 
         ## Make new dir and populate with necessary files
         

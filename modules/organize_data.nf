@@ -7,13 +7,14 @@ process organize_data {
 
     input:
         tuple val(curr_test_type), val(curr_barcode), val(curr_julian_id), val(curr_req_number)
-    
+        path input_dir
+
     output:
         tuple val("$curr_test_type"), val("$curr_barcode"), val("$curr_julian_id"), val("$curr_req_number")
 
     shell:
     """
-    batch_dir=${params.input_dir}
+    batch_dir=${input_dir}
     
     # Make sure batch_dir path ends in '/'
     if [[ "\${batch_dir: -1}" != "/" ]]; then
