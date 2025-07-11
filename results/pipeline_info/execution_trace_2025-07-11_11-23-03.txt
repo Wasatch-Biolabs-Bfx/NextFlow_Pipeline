@@ -1,0 +1,8 @@
+task_id	hash	native_id	name	status	exit	submit	duration	realtime	%cpu	peak_rss	peak_vmem	rchar	wchar
+1	53/f818d6	348224	parse_json	CACHED	0	2025-07-09 17:01:47.718	1.6s	1.6s	-	-	-	-	-
+3	5b/470070	480269	merge_bams (2)	COMPLETED	0	2025-07-11 11:23:05.495	1.9s	325ms	51.2%	6 MB	13.1 MB	3.7 MB	2.8 MB
+4	6f/4faf14	480239	merge_bams (3)	COMPLETED	0	2025-07-11 11:23:05.485	2.1s	441ms	53.6%	6 MB	11 MB	6.3 MB	4.3 MB
+2	46/feb726	480252	merge_bams (1)	COMPLETED	0	2025-07-11 11:23:05.492	2.1s	452ms	56.7%	6 MB	13.1 MB	6.6 MB	4.5 MB
+5	0e/fca235	480289	merge_bams (4)	COMPLETED	0	2025-07-11 11:23:05.498	2.3s	760ms	70.4%	4.5 MB	13.1 MB	15.7 MB	10.2 MB
+6	78/dbd83b	481518	align (1)	ABORTED	-	2025-07-11 11:23:07.620	-	-	-	-	-	-	-
+7	12/9954fc	481526	align (2)	ABORTED	-	2025-07-11 11:23:07.623	-	-	-	-	-	-	-

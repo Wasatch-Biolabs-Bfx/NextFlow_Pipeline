@@ -1,0 +1,166 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/Wasatch-Biolabs-Bfx/NextFlow_Pipeline/master/nextflow_schema.json",
+    "title": "Wasatch Biolabs Automated Pipeline parameters",
+    "description": "This pipeline processes Oxford Nanopore sequencing data with methylation analysis, from raw data processing to cloud storage and API reporting.",
+    "type": "object",
+    "definitions": {
+        "input_output_options": {
+            "title": "Input/output options",
+            "type": "object",
+            "fa_icon": "fas fa-terminal",
+            "description": "Define where the pipeline should find input data and save output data.",
+            "required": ["input_dir", "batch_id"],
+            "properties": {
+                "input_dir": {
+                    "type": "string",
+                    "format": "directory-path",
+                    "description": "Path to the batch directory containing input files",
+                    "help_text": "The directory containing the batch data to be processed (e.g., /path/to/batch/dir/240606-G)",
+                    "fa_icon": "fas fa-folder-open"
+                },
+                "batch_id": {
+                    "type": "string",
+                    "description": "Unique identifier for the batch",
+                    "help_text": "The batch identifier used for processing and file naming (e.g., 240606-G)",
+                    "fa_icon": "fas fa-tag"
+                }
+            }
+        },
+        "reference_genome_options": {
+            "title": "Reference genome options",
+            "type": "object",
+            "fa_icon": "fas fa-dna",
+            "description": "Reference genome and annotation files",
+            "properties": {
+                "ref_genome": {
+                    "type": "string",
+                    "format": "file-path",
+                    "description": "Path to reference genome file",
+                    "help_text": "Reference genome file used for alignment and methylation analysis",
+                    "fa_icon": "fas fa-file"
+                },
+                "ref_motifs": {
+                    "type": "string",
+                    "format": "file-path",
+                    "description": "Path to reference motifs BED file",
+                    "help_text": "BED file containing reference motifs for methylation analysis",
+                    "fa_icon": "fas fa-file"
+                }
+            }
+        },
+        "processing_options": {
+            "title": "Processing options",
+            "type": "object",
+            "fa_icon": "fas fa-cogs",
+            "description": "Options for controlling pipeline processing",
+            "properties": {
+                "parallel_processes": {
+                    "type": "integer",
+                    "description": "Number of parallel processes to run",
+                    "help_text": "Maximum number of parallel processes for compute-intensive steps",
+                    "fa_icon": "fas fa-microchip",
+                    "minimum": 1
+                },
+                "align": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Enable alignment step",
+                    "help_text": "Whether to perform sequence alignment",
+                    "fa_icon": "fas fa-align-left"
+                },
+                "modification": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Enable methylation modification analysis",
+                    "help_text": "Whether to perform methylation analysis using modkit",
+                    "fa_icon": "fas fa-dna"
+                }
+            }
+        },
+        "aws_options": {
+            "title": "AWS options",
+            "type": "object",
+            "fa_icon": "fab fa-aws",
+            "description": "AWS S3 configuration for data upload",
+            "properties": {
+                "s3_bucket": {
+                    "type": "string",
+                    "description": "AWS S3 bucket name for data upload",
+                    "help_text": "S3 bucket where processed data and reports will be uploaded",
+                    "fa_icon": "fas fa-cloud-upload-alt"
+                }
+            }
+        },
+        "api_options": {
+            "title": "API options",
+            "type": "object",
+            "fa_icon": "fas fa-plug",
+            "description": "API configuration for data retrieval and status reporting",
+            "properties": {
+                "api_link_get": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "API endpoint for retrieving batch information",
+                    "help_text": "URL for the GET API endpoint to retrieve batch data",
+                    "fa_icon": "fas fa-download"
+                },
+                "api_link_post": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "API endpoint for posting completion status",
+                    "help_text": "URL for the POST API endpoint to report completion status",
+                    "fa_icon": "fas fa-upload"
+                },
+                "api_auth_key": {
+                    "type": "string",
+                    "description": "Authentication key for API access",
+                    "help_text": "Authentication key required for API access",
+                    "fa_icon": "fas fa-key"
+                }
+            }
+        },
+        "generic_options": {
+            "title": "Generic options",
+            "type": "object",
+            "fa_icon": "fas fa-file-alt",
+            "description": "Less common options for the pipeline, typically set in a config file.",
+            "properties": {
+                "help": {
+                    "type": "boolean",
+                    "description": "Display help text.",
+                    "fa_icon": "fas fa-question-circle",
+                    "default": false,
+                    "hidden": true
+                },
+                "version": {
+                    "type": "string",
+                    "description": "Pipeline version",
+                    "default": "v0.0.0",
+                    "fa_icon": "fas fa-code-branch",
+                    "hidden": true
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/input_output_options"
+        },
+        {
+            "$ref": "#/definitions/reference_genome_options"
+        },
+        {
+            "$ref": "#/definitions/processing_options"
+        },
+        {
+            "$ref": "#/definitions/aws_options"
+        },
+        {
+            "$ref": "#/definitions/api_options"
+        },
+        {
+            "$ref": "#/definitions/generic_options"
+        }
+    ]
+}

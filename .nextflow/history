@@ -119,3 +119,6 @@
 2025-07-09 16:50:47	1m 19s	chaotic_dijkstra	ERR	21b67de55f79d06bee04c9c8e17b47d4	96adbc71-76d7-4010-b82f-2d8b72f4ae5e	nextflow run main.nf -resume --input_dir /media/wbl-storage/hailey_code/NextFlow_Testing --batch_id 250604-A
 2025-07-09 16:56:01	2m 9s	ridiculous_gates	OK	d561c307c880455a27698334ecb38f8d	96adbc71-76d7-4010-b82f-2d8b72f4ae5e	nextflow run main.nf -resume --input_dir /media/wbl-storage/hailey_code/NextFlow_Testing --batch_id 250604-A
 2025-07-09 17:01:46	2m 7s	evil_bartik	OK	08f52806fc69ea62e16b6fa19bb80701	96adbc71-76d7-4010-b82f-2d8b72f4ae5e	nextflow run main.nf -resume --input_dir /media/wbl-storage/hailey_code/NextFlow_Testing --batch_id 250604-A
+2025-07-11 11:20:40	27.8s	compassionate_ramanujan	ERR	9e5a2d035a46c9fc9fd0b95a3fd67516	96adbc71-76d7-4010-b82f-2d8b72f4ae5e	nextflow run main.nf -resume --input_dir /media/wbl-storage/hailey_code/NextFlow_Testing --batch_id 250604-A
+2025-07-11 11:23:03	5.8s	fabulous_torricelli	ERR	9e5a2d035a46c9fc9fd0b95a3fd67516	96adbc71-76d7-4010-b82f-2d8b72f4ae5e	nextflow run main.nf -resume --input_dir /media/wbl-storage/hailey_code/NextFlow_Testing --batch_id 250604-A
+2025-07-11 11:27:34	1m 21s	infallible_einstein	ERR	9e5a2d035a46c9fc9fd0b95a3fd67516	96adbc71-76d7-4010-b82f-2d8b72f4ae5e	nextflow run main.nf -resume --input_dir /media/wbl-storage/hailey_code/NextFlow_Testing --batch_id 250604-A
