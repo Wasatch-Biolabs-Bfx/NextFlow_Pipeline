@@ -1,107 +1,95 @@
-#!/usr/bin/
-
+#!/usr/bin/env nextflow
 /*
-* This main pipeline will parse GET API response and process each sample according
-* each sample according to it's declared test type.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    WBL AUTOMATED PIPELINES
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Github : https://github.com/Wasatch-Biolabs-Bfx/NextFlow_Pipeline
+    Website: https://wasatchbiolabs.com
+----------------------------------------------------------------------------------------
 */
 
+nextflow.enable.dsl = 2
+
 /*
-* Help message function
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    IMPORT FUNCTIONS / MODULES / SUBWORKFLOWS / WORKFLOWS
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
-params.help = false
-def helpMessage() {
-    log.info"""
-    ================================================================
-    W B L - A U T O M A T E D  P I P E L I N E S
-    ================================================================
-    DESCRIPTION
-    Usage:
-    nextflow run main.nf --input_dir <input dir> --batch_id <batch id>
 
-    Required options:
-        --input_dir        	e.g. /path/to/batch/dir/240606-G
-        --batch_id          e.g. 240606-G           
+include { WBL_PIPELINE } from './workflows/wblpipeline'
 
-    Pipeline output is deposited in the 'input_dir'      
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    NAMED WORKFLOWS FOR PIPELINE
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
 
-    """.stripIndent()
-}
+//
+// WORKFLOW: Run main analysis pipeline
+//
+workflow WBLAUTOMATED {
 
-if (params.help) {
-    helpMessage()
-    exit 0
+    take:
+    input_dir    // path: Input directory containing batch data
+    batch_id     // val:  Batch identifier
+    
+    main:
+
+    //
+    // WORKFLOW: Run pipeline
+    //
+    WBL_PIPELINE (
+        input_dir,
+        batch_id
+    )
+
+    emit:
+    versions = WBL_PIPELINE.out.versions // channel: [ path(versions.yml) ]
+
 }
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    WBL MAIN NEXTFLOW PIPELINE
+    RUN MAIN WORKFLOW
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
-
-/*
-* Declare Permanent Parameters
-*/
-
-// run in parallel or sequentially
-params.parallel_processes = null  // Default to parallel processing
-params.align = true
-params.modification = true
-
-// modules to include (all the steps)
-include { parse_json } from './modules/parse_json.nf'
-include { merge_bams } from './modules/merge_bams.nf'
-include { align } from './modules/align.nf'
-include { modkit } from './modules/modkit.nf'
-include { ch3 } from './modules/ch3.nf'
-include { qc } from './modules/qc.nf'
-include { organize_data } from './modules/organize_data.nf'
-include { aws_upload_samples } from './modules/aws_upload_samples.nf'
-include { aws_upload_batch } from './modules/aws_upload_batch.nf'
-include { api_post } from './modules/api_post.nf'
-
-// version
-params.version="v0.0.0"
-
-log.info """\
-         W B L - A U T O M A T E D  P I P E L I N E S
-    """
-    .stripIndent(true)
-log.info ""
-log.info " Declared Parameters "
-log.info " ======================"
-log.info " Input Directory          : ${params.input_dir}"
-log.info " Batch ID                 : ${params.batch_id}"
-log.info " ======================"
-log.info ""
-
-
-// Workflow! Bread and butter of this thing
 
 workflow {
-    // Batch level processing
-    parse_json(params.batch_id, file("${projectDir}/src"))
 
-    // Sample level processing
-    samples_ch = parse_json.out.splitCsv( header: false, sep: '\t' )
+    main:
 
-    merge_bams(samples_ch, params.input_dir)
+    //
+    // SUBWORKFLOW: Run initialisation tasks
+    //
+    
+    // Check mandatory parameters
+    if (!params.input_dir) {
+        error "Please provide an input directory with --input_dir"
+    }
+    if (!params.batch_id) {
+        error "Please provide a batch ID with --batch_id"
+    }
 
-    align(merge_bams.out, params.input_dir, params.ref_genome)
+    // Validate input directory exists
+    if (!file(params.input_dir).exists()) {
+        error "Input directory does not exist: ${params.input_dir}"
+    }
 
-    modkit(align.out, params.input_dir, params.ref_genome, params.ref_motifs)
+    // Create input channels
+    ch_input_dir = Channel.value(file(params.input_dir))
+    ch_batch_id  = Channel.value(params.batch_id)
 
-    ch3(modkit.out, params.input_dir)
-
-    qc(ch3.out, params.input_dir)
-
-    organize_data(qc.out, params.input_dir)
-
-    aws_upload_samples(organize_data.out)
-
-    // Collect all results
-    all_results = aws_upload_samples.out.collect()
-
-    aws_upload_batch(params.batch_id, all_results)
-
-    api_post(aws_upload_batch.out)
+    //
+    // WORKFLOW: Run pipeline
+    //
+    WBLAUTOMATED (
+        ch_input_dir,
+        ch_batch_id
+    )
 }
+
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    THE END
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
